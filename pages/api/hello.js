@@ -1,5 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
+// visit http://localhost:3000/api/hello?text=yo
 export default function handler(req, res) {
-  res.status(200).json({ name: 'John Doe' })
+  res.status(200).json({ text: req.query.text || 'Hello' });
 }
