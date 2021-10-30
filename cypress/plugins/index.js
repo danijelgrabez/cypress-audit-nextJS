@@ -21,6 +21,41 @@ const fs = require('fs');
 const path = require('path');
 const { format } = require('date-fns');
 
+const reportT = {
+  lh: 'lh',
+  pa11y: 'pa11y',
+};
+/**
+ * Create a11y or Lighthouse report
+ */
+const createReport = ({ report, pageUrl, reportType }) => {
+  const dateFormat = format(Date.now(), 'dd.MM.yyyy_HH:mm');
+  const [_, fPath] = pageUrl.split('http://localhost:3000/');
+  const folderPath = fPath || 'home';
+  const ext = reportType === reportT.lh ? 'html' : 'json';
+  const reportName = `${dateFormat}_${reportType}_report.${ext}`;
+
+  // Organize reports
+  fs.mkdir(`cypress/reports/${folderPath}`, { recursive: true }, (err) => {
+    if (err) throw err;
+
+    if (reportType === reportT.lh) {
+      fs.writeFileSync(
+        path.resolve(process.cwd(), `cypress/reports/${folderPath}/${reportName}`),
+        ReportGenerator.generateReport(report, 'html')
+      );
+    }
+
+    if (reportType === reportT.pa11y) {
+      fs.writeFileSync(
+        path.resolve(process.cwd(), `cypress/reports/${folderPath}/${reportName}`),
+        JSON.stringify(report, null, 2),
+        'utf-8'
+      );
+    }
+  });
+};
+
 module.exports = (on, config) => {
   on('before:browser:launch', (browser = {}, launchOptions) => {
     prepareAudit(launchOptions);
@@ -46,25 +81,23 @@ module.exports = (on, config) => {
   on('task', {
     lighthouse: lighthouse((lighthouseReport) => {
       // console.log(lighthouseReport); // raw lighthouse reports
-      const dateFormat = format(Date.now(), 'dd.MM.yyyy_HH:mm');
-      const [_, folderPath] = lighthouseReport.lhr.requestedUrl.split('http://localhost:3000/');
-      const reportFileName = `${dateFormat}_lhreport.html`;
-      // Organize reports
-      fs.mkdir(`cypress/reports/${folderPath}`, { recursive: true }, (err) => {
-        if (err) throw err;
-
-        fs.writeFileSync(
-          path.resolve(process.cwd(), `cypress/reports/${folderPath}/${reportFileName}`),
-          ReportGenerator.generateReport(lighthouseReport.lhr, 'html')
-        );
+      createReport({
+        report: lighthouseReport.lhr,
+        pageUrl: lighthouseReport.lhr.requestedUrl,
+        reportType: reportT.lh,
       });
     }),
-    /**
 
+    /**
      * NOTE: It is possible to create a custom report for pa11y as well
      */
     pa11y: pa11y((pa11yReport) => {
       console.log(pa11yReport); // raw pa11y reports
+      createReport({
+        report: pa11yReport,
+        pageUrl: pa11yReport.pageUrl,
+        reportType: reportT.pa11y,
+      });
     }),
   });
 };

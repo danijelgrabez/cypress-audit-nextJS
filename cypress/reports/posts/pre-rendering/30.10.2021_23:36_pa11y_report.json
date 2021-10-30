@@ -1,0 +1,36 @@
+{
+  "documentTitle": "Two Forms of Pre-rendering",
+  "pageUrl": "http://localhost:3000/posts/pre-rendering",
+  "issues": [
+    {
+      "code": "html-has-lang",
+      "type": "error",
+      "typeCode": 1,
+      "message": "<html> element must have a lang attribute (https://dequeuniversity.com/rules/axe/4.3/html-has-lang?application=axeAPI)",
+      "context": "<html><head><meta name=\"viewport\" con...</html>",
+      "selector": "html",
+      "runner": "axe",
+      "runnerExtras": {
+        "description": "Ensures every HTML document has a lang attribute",
+        "impact": "serious",
+        "help": "<html> element must have a lang attribute",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.3/html-has-lang?application=axeAPI"
+      }
+    },
+    {
+      "code": "region",
+      "type": "error",
+      "typeCode": 1,
+      "message": "All page content should be contained by landmarks (https://dequeuniversity.com/rules/axe/4.3/region?application=axeAPI)",
+      "context": "<div class=\"layout_backToHome__1vZsp\"><a href=\"/\">← Back to home</a></div>",
+      "selector": "#__next > div > div",
+      "runner": "axe",
+      "runnerExtras": {
+        "description": "Ensures all page content is contained by landmarks",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.3/region?application=axeAPI"
+      }
+    }
+  ]
+}

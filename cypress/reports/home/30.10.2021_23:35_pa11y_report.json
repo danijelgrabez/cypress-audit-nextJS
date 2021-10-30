@@ -1,0 +1,21 @@
+{
+  "documentTitle": "Next.js Sample Website",
+  "pageUrl": "http://localhost:3000/",
+  "issues": [
+    {
+      "code": "html-has-lang",
+      "type": "error",
+      "typeCode": 1,
+      "message": "<html> element must have a lang attribute (https://dequeuniversity.com/rules/axe/4.3/html-has-lang?application=axeAPI)",
+      "context": "<html><head><meta name=\"viewport\" con...</html>",
+      "selector": "html",
+      "runner": "axe",
+      "runnerExtras": {
+        "description": "Ensures every HTML document has a lang attribute",
+        "impact": "serious",
+        "help": "<html> element must have a lang attribute",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.3/html-has-lang?application=axeAPI"
+      }
+    }
+  ]
+}

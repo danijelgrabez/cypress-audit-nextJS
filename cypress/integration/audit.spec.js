@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 context('Accessibility and Performance Testing', () => {
-  it.only('audits the home page', () => {
+  it.skip('audits the home page', () => {
     cy.visit('/');
 
     cy.lighthouse({
@@ -24,7 +24,7 @@ context('Accessibility and Performance Testing', () => {
   // NOTE: Custom thresholds
   // Read more about recommended config for better results:
   // https://github.com/mfrachet/cypress-audit/blob/master/docs/lighthouse.md#lighthouse-scores-may-be-different-between-local-run-and-cypress-audit
-  it('audits the homepage with custom threshold (will produce a failing test)', () => {
+  it.only('audits the homepage with custom threshold (will produce a failing test)', () => {
     cy.visit('/');
 
     const customThresholds = {
@@ -52,6 +52,12 @@ context('Accessibility and Performance Testing', () => {
     };
 
     cy.lighthouse(customThresholds, desktopConfig);
+
+    cy.pa11y({
+      headers: {
+        title: true,
+      },
+    });
   });
 
   const posts = ['ssg-ssr', 'pre-rendering'];
