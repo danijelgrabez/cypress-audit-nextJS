@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "e2e:audit": "cypress open",
+    "e2e:audit:headless": "cypress run --headless --browser chrome"
   },
   "dependencies": {
     "date-fns": "^2.25.0",
@@ -18,7 +20,10 @@
     "remark-html": "13"
   },
   "devDependencies": {
-    "eslint": "7",
-    "eslint-config-next": "12.0.1"
+    "cypress": "^8.7.0",
+    "cypress-audit": "^1.1.0",
+    "eslint": "^8.1.0",
+    "eslint-config-next": "12.0.1",
+    "lighthouse": "^8.6.0"
   }
 }
