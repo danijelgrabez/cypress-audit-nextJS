@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "e2e:audit": "cypress open",
-    "e2e:audit:headless": "cypress run --headless --browser chrome"
+    "e2e:audit:headless": "cypress run --headless --browser chrome",
+    "e2e:local-audit": "concurrently --kill-others \"yarn dev\" \"yarn e2e:audit\"",
+    "e2e:prod-audit": "concurrently --kill-others \"yarn start\" \"yarn e2e:audit\""
   },
   "dependencies": {
     "date-fns": "^2.25.0",
@@ -20,6 +22,7 @@
     "remark-html": "13"
   },
   "devDependencies": {
+    "concurrently": "^6.3.0",
     "cypress": "^8.7.0",
     "cypress-audit": "^1.1.0",
     "eslint": "^8.1.0",
