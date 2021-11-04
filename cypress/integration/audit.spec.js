@@ -18,6 +18,7 @@ context('Accessibility and Performance Testing', () => {
       headers: {
         title: true,
       },
+      ignore: ['html-has-lang'],
     });
   });
 
@@ -57,6 +58,7 @@ context('Accessibility and Performance Testing', () => {
       headers: {
         title: true,
       },
+      ignore: ['html-has-lang'],
     });
   });
 
@@ -77,6 +79,7 @@ context('Accessibility and Performance Testing', () => {
         headers: {
           title: true,
         },
+        ignore: ['html-has-lang'],
       });
     });
   });
